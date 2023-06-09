@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+package mafia;
+
+import "google/protobuf/empty.proto";
+
+message ChatMessage {
+    uint32 PlayerNumber = 1;
+    string PlayerName = 2;
+    string Message = 3;
+};
+
+enum LobbyStatus {
+    HAVE_SLOTS = 0;
+    NOT_FOUND = 1;
+    FULL = 2;
+};
+
+enum GameStatus {
+    NOT_STARTED = 0;
+    DAY = 1;
+    NIGHT = 2;
+    ENDED = 3;
+};
+
+enum Role {
+    UNKNOWN = 0;
+    MAFIA = 1;
+    SHERIFF = 2;
+    CIVILIAN = 3;
+};
+
+enum Condition {
+    ALIVE = 0;
+    GHOST = 1;
+};
+
+message JoinParams {
+    string User = 1;
+    string GameId = 2;
+};
+
+message ExitParams {
+    string User = 1;
+    string GameId = 2;
+};
+
+message Player {
+    string Login = 1;
+    Role Role = 2;
+    Condition Condition = 3;
+    bool CheckedBySheriff = 4;
+};
+
+message Game {
+    string Id = 1;
+    LobbyStatus Status = 2;
+    GameStatus GameInfo = 3;
+    repeated Player Players = 5;
+};
+
+service Server {
+    rpc GetChatMessages(google.protobuf.Empty) returns (stream ChatMessage) {}
+    rpc Connect(google.protobuf.Empty) returns (google.protobuf.Empty) {}
+    rpc JoinGame(JoinParams) returns (stream Game) {}
+};
