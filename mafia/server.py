@@ -3,7 +3,6 @@ from __future__ import annotations
 import asyncio
 import grpc
 import google.protobuf.empty_pb2
-import logging
 from configparser import ConfigParser
 import string
 import random

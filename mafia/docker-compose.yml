@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  server:
+    image: mafia-server
+    build:
+      context: ./
+      dockerfile: server.dockerfile
+    ports:
+      - 5000:5000

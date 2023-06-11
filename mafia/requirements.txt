@@ -1,0 +1,4 @@
+aiologger==0.7.0
+colored==1.4.4
+grpcio-tools==1.54.2
+prompt-toolkit==3.0.38
